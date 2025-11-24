@@ -1,0 +1,74 @@
+﻿@model IEnumerable<traicay.Models.SanPham>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<style>
+    .mau{
+        background-color:dodgerblue;
+    }
+</style>
+@using (Html.BeginForm("Index", "Sanphams", FormMethod.Get))
+            {
+                <div>
+                    Tìm theo tên:
+                    <input type="text" name="tenhang" value="@Request["tenhang"]"/>
+                    <button type="submit">Tìm</button>
+                </div>
+                <div style="color:red">@Html.ValidationMessage("tenhang")</div>
+            }
+<p>
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-sm btn-primary text-white" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HangSanXuat.TenHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HinhAnh)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HangSanXuat.TenHang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenSP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoLuong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DonGia)
+        </td>
+        <td>
+            @{ 
+                var path = ("~/images/") + item.HinhAnh;
+            }
+            <img src="@Url.Content(path)" width="200" height="170" id="imgfile" name="imgfile" />
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaSP }, new { @class = "btn btn-sm btn-warning text-white"}) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaSP }, new { @class = "btn btn-sm btn-info text-white" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaSP }, new { @class = "btn btn-sm btn-danger text-white" })
+        </td>
+    </tr>
+}
+
+</table>
